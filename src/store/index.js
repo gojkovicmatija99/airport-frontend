@@ -8,7 +8,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     flights:[],
-    users:[]
+    users:[],
+    token: ''
   },
   mutations: {
     set_flights: function (state, flightsJson) {
@@ -174,7 +175,8 @@ export default new Vuex.Store({
         if (!response.ok)
           throw response;
 
-        return response.json();
+        this.state.token = response.headers.get("Authorization");
+        console.log(this.state.token);
       }).catch((error) => {
         if (typeof error.text === 'function')
           error.text().then((errorMessage) => {
