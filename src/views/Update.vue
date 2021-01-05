@@ -95,6 +95,7 @@
                 this.newEmail = '';
                 this.newPassword = '';
                 this.newPassportNum = '';
+                this.$router.push('login');
             }
         }
     }

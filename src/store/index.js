@@ -198,7 +198,7 @@ export default new Vuex.Store({
         if (!response.ok)
           throw response;
 
-
+        this.state.token = '';
       }).catch((error) => {
         if (typeof error.text === 'function')
           error.text().then((errorMessage) => {
