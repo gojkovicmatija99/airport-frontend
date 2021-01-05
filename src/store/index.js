@@ -185,6 +185,50 @@ export default new Vuex.Store({
         else
           alert(error);
       });
+    },
+    update_user: function({ commit }, user){
+      fetch('http://localhost:8081/update', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': this.state.token
+        },
+        body: user
+      }).then((response) => {
+        if (!response.ok)
+          throw response;
+
+
+      }).catch((error) => {
+        if (typeof error.text === 'function')
+          error.text().then((errorMessage) => {
+            alert(errorMessage);
+          });
+        else
+          alert(error);
+      });
+    },
+    add_credit_card: function({ commit }, creditCard){
+      fetch('http://localhost:8081/add_creditCard', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': this.state.token
+        },
+        body: creditCard
+      }).then((response) => {
+        if (!response.ok)
+          throw response;
+
+
+      }).catch((error) => {
+        if (typeof error.text === 'function')
+          error.text().then((errorMessage) => {
+            alert(errorMessage);
+          });
+        else
+          alert(error);
+      });
     }
   },
   modules: {

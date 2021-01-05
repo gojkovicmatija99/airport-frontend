@@ -21,14 +21,24 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Admin.vue')
   },
   {
-      path: '/register',
-      name: 'Register',
-      component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
+    path: '/register',
+    name: 'Register',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
   },
   {
-        path: '/login',
-        name: 'Login',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+    path: '/login',
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+  },
+  {
+    path: '/update',
+    name: 'Update',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Update.vue')
+  },
+  {
+    path: '/addCreditCard',
+    name: 'CreditCard',
+    component: () => import(/* webpackChunkName: "about" */ '../views/CreditCard.vue')
     }
 ]
 
