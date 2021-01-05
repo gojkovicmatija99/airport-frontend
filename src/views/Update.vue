@@ -45,7 +45,7 @@
         props: {
             firstName: {
                 type: String,
-                default: nil
+                default: null
             },
             lastName: {
                 type: String,

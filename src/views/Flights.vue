@@ -6,7 +6,7 @@
         <b-col col lg="7">
           <b-pagination
           v-model="currentPage"
-          :total-rows=7
+          :total-rows="flights.length*10"
           :per-page="perPage"
           aria-controls="flights-table"
           @input="changePage"
@@ -34,6 +34,7 @@ export default {
   name: 'Flights',
   computed: {
       ...mapState(['flights']),
+      ...mapState(['token']),
     },
     data() {
       return {

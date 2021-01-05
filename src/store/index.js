@@ -129,7 +129,7 @@ export default new Vuex.Store({
       });
     },
     remove_airplane: function ({ commit }, airplaneId) {
-      fetch('http://localhost:8082/airplane/delete/' + airplaneId, { method: 'get' }).then((response) => {
+      fetch('http://localhost:8082/airplane/delete/' + airplaneId, { method: 'delete' }).then((response) => {
         if (!response.ok)
           throw response;
         alert("Airplane has been removed!")
@@ -229,7 +229,28 @@ export default new Vuex.Store({
         else
           alert(error);
       });
-    }
+    },
+    is_admin: function ({ commit }) {
+      fetch('http://localhost:8081/is_admin', 
+      {
+        method: 'get',
+        headers: {
+          'Authorization': this.state.token
+      }}).then((flightsJson) => {
+        return flightJson;
+      }).then((response) => {
+        if (!response.ok)
+          return false;
+        return true;
+      }).catch((error) => {
+        if (typeof error.text === 'function')
+          error.text().then((errorMessage) => {
+            alert(errorMessage);
+          });
+        else
+          alert(error);
+      });
+    },
   },
   modules: {
   }

@@ -1,5 +1,5 @@
 <template>
-    <div class="login">
+    <div v-if="token == ''" class="login">
         <b-container fluid>
             <b-form>
                 <b-row class="mt-2">
@@ -27,6 +27,9 @@
 
     export default {
         name: 'Login',
+        computed: {
+            ...mapState(['token'])
+        },
         props: {
             email: {
                 type: String,

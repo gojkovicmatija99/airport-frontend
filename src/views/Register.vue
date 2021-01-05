@@ -1,5 +1,5 @@
 <template>
-    <div class="register">
+    <div v-if="token == ''" class="register">
         <b-container fluid>
             <b-form>
                 <b-row class="mt-2">
@@ -42,6 +42,9 @@
 
     export default {
         name: 'Register',
+        computed: {
+            ...mapState(['token'])
+        },
         props: {
             firstName: {
                 type: String,

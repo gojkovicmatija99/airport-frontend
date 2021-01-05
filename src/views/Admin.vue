@@ -68,6 +68,9 @@ import Flight from "../classes/Flight.js";
 import Airplane from "../classes/Airplane.js";
 export default {
     name: 'Admin',
+    computed: {
+      ...mapState(['token']),
+    },
     data() {
       return {
         airplaneIdAddFlight: '',
@@ -86,6 +89,7 @@ export default {
         ...mapActions(['cancel_flight']),
         ...mapActions(['add_airplane']),
         ...mapActions(['remove_airplane']),
+        ...mapActions(['is_admin']),
         addFlight: function() {
             const flight = new Flight(-1, this.airplaneIdAddFlight, this.startDestination, this.endDestination,this.distance, this.price, '0' , 0, true);
             this.add_flight(flight);
@@ -99,6 +103,10 @@ export default {
         },
         removeAirplane: function() {
             this.remove_airplane(this.airplaneIdRemoveAirplane);
+        },
+        mounted: function() {
+            response = this.is_admin();
+            conole.log(response);
         }
     }
 }
