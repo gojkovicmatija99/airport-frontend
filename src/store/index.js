@@ -7,7 +7,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    flights:[]
+    flights:[],
+    users:[]
   },
   mutations: {
     set_flights: function (state, flightsJson) {
@@ -24,7 +25,7 @@ export default new Vuex.Store({
         const flight = new Flight(id, airplaneId, startDestination, endDestination, distance, price, currentPassengers, canceled, false);
         state.flights.push(flight);
       }
-    }
+    },
   },
   actions: {
     load_available_flights: function ({ commit }, page) {
@@ -140,6 +141,49 @@ export default new Vuex.Store({
           alert(error);
       });
     },
+    new_user: function({ commit }, user) {
+      fetch('http://localhost:8081/register', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: user
+      }).then((response) => {
+        if (!response.ok) {
+          console.log(response)
+          throw response;
+        }
+        return 'success'
+      }).catch((error) => {
+        if (typeof error.text === 'function')
+          error.text().then((errorMessage) => {
+            alert(errorMessage);
+          });
+        else
+          alert(error);
+      });
+    },
+    login_user: function({ commit }, user){
+      fetch('http://localhost:8081/login', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: user
+      }).then((response) => {
+        if (!response.ok)
+          throw response;
+
+        return response.json();
+      }).catch((error) => {
+        if (typeof error.text === 'function')
+          error.text().then((errorMessage) => {
+            alert(errorMessage);
+          });
+        else
+          alert(error);
+      });
+    }
   },
   modules: {
   }
