@@ -54,7 +54,7 @@ export default new Vuex.Store({
       fetch('http://localhost:8082/flight/search', {
         method: 'post',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: filter
       }).then((response) => {
@@ -77,7 +77,8 @@ export default new Vuex.Store({
       fetch('http://localhost:8082/flight/add', {
         method: 'post',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': this.state.token
         },
         body: json
         }).then((response) => {
@@ -85,34 +86,31 @@ export default new Vuex.Store({
           throw response;
         alert("Flight has been added!");
       }).catch((error) => {
-        if (typeof error.text === 'function')
-          error.text().then((errorMessage) => {
-            alert(errorMessage);
-          });
-        else
-          alert(error);
+          alert("Access denied!");
       });
     },
     cancel_flight: function ({ commit }, flightId) {
-      fetch('http://localhost:8082/flight/cancel/' + flightId, { method: 'get' }).then((response) => {
+      fetch('http://localhost:8082/flight/cancel/' + flightId, { 
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': this.state.token
+        }}).then((response) => {
         if (!response.ok)
           throw response;
         alert("Flight has been canceled!")
       }).catch((error) => {
-        if (typeof error.text === 'function')
-          error.text().then((errorMessage) => {
-            alert(errorMessage);
-          });
-        else
-          alert(error);
+          alert("Access denied!");
       });
     },
     add_airplane: function ({ commit }, airplane) {
       const json = JSON.stringify(airplane)
+      console.log(this.state.token);
       fetch('http://localhost:8082/airplane/add', {
         method: 'post',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': this.state.token
         },
         body: json
         }).then((response) => {
@@ -120,26 +118,21 @@ export default new Vuex.Store({
           throw response;
         alert("Airplane has been added!");
       }).catch((error) => {
-        if (typeof error.text === 'function')
-          error.text().then((errorMessage) => {
-            alert(errorMessage);
-          });
-        else
-          alert(error);
+          alert("Access denied!");
       });
     },
     remove_airplane: function ({ commit }, airplaneId) {
-      fetch('http://localhost:8082/airplane/delete/' + airplaneId, { method: 'delete' }).then((response) => {
+      fetch('http://localhost:8082/airplane/delete/' + airplaneId, { 
+        method: 'delete',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': this.state.token
+        }}).then((response) => {
         if (!response.ok)
           throw response;
         alert("Airplane has been removed!")
       }).catch((error) => {
-        if (typeof error.text === 'function')
-          error.text().then((errorMessage) => {
-            alert(errorMessage);
-          });
-        else
-          alert(error);
+          alert("Access denied!");
       });
     },
     new_user: function({ commit }, user) {
