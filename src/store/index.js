@@ -30,7 +30,7 @@ export default new Vuex.Store({
   },
   actions: {
     load_available_flights: function ({ commit }, page) {
-      fetch('http://localhost:8082/flight/all/' + page, { method: 'get' }).then((response) => {
+      fetch('http://localhost:8762/rest-airport-flight-service/flight/all/' + page, { method: 'get' }).then((response) => {
         if (!response.ok)
           throw response;
         return response.json()
@@ -51,7 +51,7 @@ export default new Vuex.Store({
       obj[name] = dto[1]
       const filter = JSON.stringify(obj);
       console.log(filter);
-      fetch('http://localhost:8082/flight/search', {
+      fetch('http://localhost:8762/rest-airport-flight-service/flight/search', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ export default new Vuex.Store({
     },
     add_flight: function ({ commit }, flight) {
       const json = JSON.stringify(flight)
-      fetch('http://localhost:8082/flight/add', {
+      fetch('http://localhost:8762/rest-airport-flight-service/flight/add', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export default new Vuex.Store({
       });
     },
     cancel_flight: function ({ commit }, flightId) {
-      fetch('http://localhost:8082/flight/cancel/' + flightId, { 
+      fetch('http://localhost:8762/rest-airport-flight-service/flight/cancel/' + flightId, {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ export default new Vuex.Store({
     add_airplane: function ({ commit }, airplane) {
       const json = JSON.stringify(airplane)
       console.log(this.state.token);
-      fetch('http://localhost:8082/airplane/add', {
+      fetch('http://localhost:8762/rest-airport-flight-service/airplane/add', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ export default new Vuex.Store({
       });
     },
     remove_airplane: function ({ commit }, airplaneId) {
-      fetch('http://localhost:8082/airplane/delete/' + airplaneId, { 
+      fetch('http://localhost:8762/rest-airport-flight-service/airplane/delete/' + airplaneId, {
         method: 'delete',
         headers: {
           'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ export default new Vuex.Store({
       });
     },
     new_user: function({ commit }, user) {
-      fetch('http://localhost:8081/register', {
+      fetch('http://localhost:8762/rest-airport-user-service/register', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -158,7 +158,7 @@ export default new Vuex.Store({
       });
     },
     login_user: function({ commit }, user){
-      fetch('http://localhost:8081/login', {
+      fetch('http://localhost:8762/rest-airport-user-service/login', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -180,7 +180,7 @@ export default new Vuex.Store({
       });
     },
     update_user: function({ commit }, user){
-      fetch('http://localhost:8081/update', {
+      fetch('http://localhost:8762/rest-airport-user-service/update', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -202,7 +202,7 @@ export default new Vuex.Store({
       });
     },
     add_credit_card: function({ commit }, creditCard){
-      fetch('http://localhost:8081/add_creditCard', {
+      fetch('http://localhost:8762/rest-airport-user-service/add_creditCard', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -224,7 +224,7 @@ export default new Vuex.Store({
       });
     },
     is_admin: function ({ commit }) {
-      fetch('http://localhost:8081/is_admin', 
+      fetch('http://localhost:8762/rest-airport-user-service/is_admin',
       {
         method: 'get',
         headers: {
