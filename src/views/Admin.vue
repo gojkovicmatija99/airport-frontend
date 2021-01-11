@@ -1,5 +1,5 @@
 <template>
-  <div class="admin">
+  <div v-if="token != ''" class="admin">
       <b-container> 
           <b-jumbotron header="Flight Service" lead="Adding and canceling flights"></b-jumbotron>
           <h3> Add flight </h3>

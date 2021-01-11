@@ -22,7 +22,7 @@
           <b-button @click="filterFlights">Filter</b-button>
         </b-col>
       </b-row>    
-      <b-table id="flights-table" striped hover :items="flights" @row-clicked="buyTicket"></b-table>
+      <b-table id="flights-table" striped hover :items="flights"></b-table>
     </b-container>
   </div>
 </template>
@@ -61,7 +61,6 @@ export default {
     ...mapActions(['load_available_flights']),
     ...mapActions(['load_number_of_available_flights']),
     ...mapActions(['load_filtered_flights']),
-    ...mapActions(['load_available_creditCards'])
     changePage: function() {
       this.load_available_flights(this.currentPage);
     },
@@ -70,10 +69,6 @@ export default {
       console.log(this.filter);
       var dto = [this.selected, this.filter];
       this.load_filtered_flights(dto);
-    },
-    buyTicket: function() {
-        this.load_available_creditCards;
-
     }
   }
 }

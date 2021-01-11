@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Flight from "../classes/Flight.js";
-import Airplane from "../classes/Airplane.js";
+import Ticket from '../classes/Ticket.js';
 
 Vue.use(Vuex)
 
@@ -11,7 +11,8 @@ export default new Vuex.Store({
     users: [],
     token: '',
     numberOfAvailableFlights: 0,
-    creditCards: []
+    creditCards: [],
+    tickets: []
   },
   mutations: {
     set_flights: function (state, flightsJson) {
@@ -27,6 +28,16 @@ export default new Vuex.Store({
         var canceled = flightsJson[index].canceled;
         const flight = new Flight(id, airplaneId, startDestination, endDestination, distance, price, currentPassengers, canceled, false);
         state.flights.push(flight);
+      }
+    },
+    set_bought_tickets: function(state, ticketsJson) {
+      state.tickets = []
+      for(var index in ticketsJson) {
+        var flightId = ticketsJson[index].flightId;
+        var date = ticketsJson[index].date;
+        var canceled = flightJson[index].canceled;
+        const ticket = new Ticket(flightId, date, canceled)
+        state.tickets.push(ticket);
       }
     },
     set_number_of_available_flights: function (state, size) {
@@ -197,7 +208,7 @@ export default new Vuex.Store({
       }).catch((error) => {
         if (typeof error.text === 'function')
           error.text().then((errorMessage) => {
-            alert(errorMessage);
+            alert("Bad Credentials");
           });
         else
           alert(error);
@@ -289,7 +300,29 @@ export default new Vuex.Store({
         else
           alert(error);
       });
-    }
+    },
+    load_bought_tickets: function ({ commit }) {
+      fetch('http://localhost:8762/rest-airport-ticket-service/bought', {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': this.state.token
+        },
+      }).then((response) => {
+        if (!response.ok)
+          throw response;
+        return response.json()
+      }).then((ticketsJson) => {
+        commit('set_bought_tickets', ticketsJson)
+      }).catch((error) => {
+        if (typeof error.text === 'function')
+          error.text().then((errorMessage) => {
+            alert(errorMessage);
+          });
+        else
+          alert(error);
+      });
+    },
   },
   modules: {
   }

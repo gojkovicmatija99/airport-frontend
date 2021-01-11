@@ -33,6 +33,11 @@ const routes = [
     path: '/addCreditCard',
     name: 'CreditCard',
     component: () => import(/* webpackChunkName: "about" */ '../views/CreditCard.vue')
+  },
+  {
+    path: '/tickets',
+    name: 'Tickets',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Tickets.vue')
     }
 ]
 

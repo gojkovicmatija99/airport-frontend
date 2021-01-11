@@ -1,5 +1,5 @@
 <template>
-    <div class="update">
+    <div v-if="token != ''" class="update">
         <b-container fluid>
             <b-form>
                 <b-row class="mt-2">
@@ -42,6 +42,9 @@
 
     export default {
         name: 'Update',
+        computed: {
+            ...mapState(['token']),
+        },
         props: {
             firstName: {
                 type: String,

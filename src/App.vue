@@ -5,6 +5,7 @@
       <router-link to="/login">Login</router-link> |
       <router-link to="/update">Update</router-link> |
       <router-link to="/addCreditCard">CreditCard</router-link> |
+      <router-link to="/tickets">Tickets</router-link> |
       <router-link to="/flights">Flights</router-link> |
       <router-link to="/admin">Admin</router-link>
     </div>
