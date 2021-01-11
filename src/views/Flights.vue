@@ -6,7 +6,7 @@
         <b-col col lg="7">
           <b-pagination
           v-model="currentPage"
-          :total-rows="flights.length*10"
+          :total-rows="numberOfAvailableFlights"
           :per-page="perPage"
           aria-controls="flights-table"
           @input="changePage"
@@ -35,6 +35,7 @@ export default {
   computed: {
       ...mapState(['flights']),
       ...mapState(['token']),
+      ...mapState(['numberOfAvailableFlights'])
     },
     data() {
       return {
@@ -53,10 +54,12 @@ export default {
       }
     },
   mounted: function() {
-     this.load_available_flights(this.currentPage);
+    this.load_number_of_available_flights();
+    this.load_available_flights(this.currentPage);
   },
   methods: {
     ...mapActions(['load_available_flights']),
+    ...mapActions(['load_number_of_available_flights']),
     ...mapActions(['load_filtered_flights']),
     changePage: function() {
       this.load_available_flights(this.currentPage);

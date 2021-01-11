@@ -7,9 +7,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    flights:[],
-    users:[],
-    token: ''
+    flights: [],
+    users: [],
+    token: '',
+    numberOfAvailableFlights: 0
   },
   mutations: {
     set_flights: function (state, flightsJson) {
@@ -27,6 +28,9 @@ export default new Vuex.Store({
         state.flights.push(flight);
       }
     },
+    set_number_of_available_flights: function (state, size) {
+      state.numberOfAvailableFlights = size;
+    }
   },
   actions: {
     load_available_flights: function ({ commit }, page) {
@@ -36,6 +40,22 @@ export default new Vuex.Store({
         return response.json()
       }).then((flightsJson) => {
         commit('set_flights', flightsJson)
+      }).catch((error) => {
+        if (typeof error.text === 'function')
+          error.text().then((errorMessage) => {
+            alert(errorMessage);
+          });
+        else
+          alert(error);
+      });
+    },
+    load_number_of_available_flights: function ({ commit }) {
+      fetch('http://localhost:8762/rest-airport-flight-service/flight/size/', { method: 'get' }).then((response) => {
+        if (!response.ok)
+          throw response;
+        return response.json()
+      }).then((size) => {
+        commit('set_number_of_available_flights', size)
       }).catch((error) => {
         if (typeof error.text === 'function')
           error.text().then((errorMessage) => {
