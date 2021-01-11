@@ -10,7 +10,8 @@ export default new Vuex.Store({
     flights: [],
     users: [],
     token: '',
-    numberOfAvailableFlights: 0
+    numberOfAvailableFlights: 0,
+    creditCards: []
   },
   mutations: {
     set_flights: function (state, flightsJson) {
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     },
     set_number_of_available_flights: function (state, size) {
       state.numberOfAvailableFlights = size;
+    },
+    set_creditCards: function (state, creditCards) {
+      state.creditCards = creditCards;
     }
   },
   actions: {
@@ -264,6 +268,28 @@ export default new Vuex.Store({
           alert(error);
       });
     },
+    load_available_creditCards: function({ commit }){
+      fetch('http://localhost:8762/rest-airport-user-service/get_creditCards', {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': this.state.token
+        },
+      }).then((response) => {
+        if (!response.ok)
+          throw response;
+        return response.json();
+      }).then((jsonData) => {
+        commit('set_creditCards', jsonData)
+      }).catch((error) => {
+        if (typeof error.text === 'function')
+          error.text().then((errorMessage) => {
+            alert(errorMessage);
+          });
+        else
+          alert(error);
+      });
+    }
   },
   modules: {
   }
