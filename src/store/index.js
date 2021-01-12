@@ -35,8 +35,8 @@ export default new Vuex.Store({
       for(var index in ticketsJson) {
         var flightId = ticketsJson[index].flightId;
         var date = ticketsJson[index].date;
-        var canceled = flightJson[index].canceled;
-        const ticket = new Ticket(flightId, date, canceled)
+        var canceled = ticketsJson[index].canceled;
+        const ticket = new Ticket(flightId, date, canceled);
         state.tickets.push(ticket);
       }
     },
@@ -302,7 +302,7 @@ export default new Vuex.Store({
       });
     },
     load_bought_tickets: function ({ commit }) {
-      fetch('http://localhost:8762/rest-airport-ticket-service/bought', {
+      fetch('http://localhost:8762/rest-airport-ticket-service/purchase/bought', {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',
