@@ -344,6 +344,9 @@ export default new Vuex.Store({
       }).catch((error) => {
           alert("Access denied!");
       });
+    },
+    set_token: function({ commit }) {
+        this.state.token = '';
     }
   },
   modules: {
