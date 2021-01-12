@@ -6,11 +6,8 @@
                 :items="creditCards"
                 :fields="fields"
                 head-variant="light"
-            <template v-slot:cell(action)="row">
-                <b-button variant="danger" @click="buy_ticket(row.item.id)">Buy Ticket</b-button>
-            </template>
+                @row_click="buy_ticket"
         </b-table>
-        <h1 v-else>No coupons</h1>
     </div>
 </template>
 
@@ -34,10 +31,13 @@
             }
         },
         methods: {
-            ...mapActions(['delete_sitesCoupon']),
+            ...mapActions(['buy_ticket']),
 
-            editSitesCoupon: function (item, index, event) {
-                router.push({path: `/sitesCoupons/${item.id}`})
+            addCreditCard: function (item, index, event) {
+                this.$router.push('addCreditCard');
+            },
+            buyTicket: function() {
+
             }
         }
     }

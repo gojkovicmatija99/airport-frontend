@@ -22,7 +22,14 @@
           <b-button @click="filterFlights">Filter</b-button>
         </b-col>
       </b-row>    
-      <b-table id="flights-table" striped hover :items="flights"></b-table>
+      <b-table id="flights-table" striped hover :items="flights" @row-click="load_creditCards"></b-table>
+      <b-container v-if="flag == true">
+          <b-row>
+              <b-col cm="6" >
+                  <BuyTicket/>
+              </b-col>
+          </b-row>
+      </b-container>
     </b-container>
   </div>
 </template>
@@ -30,14 +37,19 @@
 <script>
 // @ is an alias to /src
 import { mapActions, mapState } from 'vuex';
+import BuyTicket from "@/components/BuyTicket";
 export default {
   name: 'Flights',
+  components: {
+      BuyTicket
+  },
   computed: {
       ...mapState(['flights']),
       ...mapState(['token']),
       ...mapState(['numberOfAvailableFlights'])
     },
     data() {
+      flag = false;
       return {
         perPage: 3,
         currentPage: 1,
@@ -61,6 +73,7 @@ export default {
     ...mapActions(['load_available_flights']),
     ...mapActions(['load_number_of_available_flights']),
     ...mapActions(['load_filtered_flights']),
+    ...mapActions(['load_available_creditCards']),
     changePage: function() {
       this.load_available_flights(this.currentPage);
     },
@@ -69,6 +82,10 @@ export default {
       console.log(this.filter);
       var dto = [this.selected, this.filter];
       this.load_filtered_flights(dto);
+    },
+    load_creditCards: function() {
+      this.load_available_creditCards;
+      this.flag = true;
     }
   }
 }
