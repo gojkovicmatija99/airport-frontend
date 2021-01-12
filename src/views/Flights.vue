@@ -21,7 +21,7 @@
         <b-col col lg ="1">
           <b-button @click="filterFlights">Filter</b-button>
         </b-col>
-      </b-row>    
+      </b-row>
       <b-table id="flights-table" striped hover :items="flights" @row-clicked="load_creditCards"></b-table>
       <b-container v-if="this.flag == true">
           <b-row>

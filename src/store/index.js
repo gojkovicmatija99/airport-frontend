@@ -332,6 +332,19 @@ export default new Vuex.Store({
           alert(error);
       });
     },
+    buy_ticket: function ({ commit }, flightId) {
+      fetch('http://localhost:8762/rest-airport-flight-service/purchase/ticket/' + flightId, {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': this.state.token
+        }}).then((response) => {
+        if (!response.ok)
+          throw response;
+      }).catch((error) => {
+          alert(error);
+      });
+    }
   },
   modules: {
   }

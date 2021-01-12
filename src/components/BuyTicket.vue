@@ -1,13 +1,16 @@
 <template>
     <div>
         <b-table
-
-            sticky-header="800px"
-            :items="creditCards"
-            :fields="fields"
-            head-variant="light"
-            @row_click="buy_ticket"
+                hover v-if="creditCards.length"
+                sticky-header="800px"
+                :items="creditCards"
+                :fields="fields"
+                head-variant="light"
+                @row-clicked="buyTicket">
         </b-table>
+        <h1 v-else>
+            <b-button variant="danger" @click="addCreditCard">Add Credit Card</b-button>
+        </h1>
     </div>
 </template>
 
@@ -37,7 +40,7 @@
                 this.$router.push('addCreditCard');
             },
             buyTicket: function() {
-
+                console.log('test');
             }
         }
     }
