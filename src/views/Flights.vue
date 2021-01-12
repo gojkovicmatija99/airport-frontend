@@ -23,7 +23,7 @@
         </b-col>
       </b-row>    
       <b-table id="flights-table" striped hover :items="flights" @row-clicked="load_creditCards"></b-table>
-      <b-container v-if="flag == true">
+      <b-container v-if="this.flag == true">
           <b-row>
               <b-col cm="6" >
                   <BuyTicket/>
@@ -84,7 +84,6 @@ export default {
       this.load_filtered_flights(dto);
     },
     load_creditCards: function() {
-      console.log('test');
       this.load_available_creditCards();
       this.flag = true;
     }

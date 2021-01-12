@@ -300,7 +300,6 @@ export default new Vuex.Store({
           throw response;
         return response.json();
       }).then((jsonData) => {
-        console.log(jsonData);
         commit('set_creditCards', jsonData)
       }).catch((error) => {
         if (typeof error.text === 'function')

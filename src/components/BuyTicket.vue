@@ -1,12 +1,12 @@
 <template>
     <div>
         <b-table
-                hover v-if="creditCards.length"
-                sticky-header="800px"
-                :items="creditCards"
-                :fields="fields"
-                head-variant="light"
-                @row_click="buy_ticket"
+
+            sticky-header="800px"
+            :items="creditCards"
+            :fields="fields"
+            head-variant="light"
+            @row_click="buy_ticket"
         </b-table>
     </div>
 </template>
