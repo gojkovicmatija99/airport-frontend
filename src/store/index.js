@@ -333,7 +333,7 @@ export default new Vuex.Store({
       });
     },
     buy_ticket: function ({ commit }, flightId) {
-      fetch('http://localhost:8762/rest-airport-flight-service/purchase/ticket/' + flightId, {
+      fetch('http://localhost:8762/rest-airport-ticket-service/purchase/ticket/' + flightId, {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',
@@ -342,7 +342,7 @@ export default new Vuex.Store({
         if (!response.ok)
           throw response;
       }).catch((error) => {
-          alert(error);
+          alert("Access denied!");
       });
     }
   },

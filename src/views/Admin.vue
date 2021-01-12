@@ -105,8 +105,6 @@ export default {
             this.remove_airplane(this.airplaneIdRemoveAirplane);
         },
         mounted: function() {
-            response = this.is_admin();
-            conole.log(response);
         }
     }
 }

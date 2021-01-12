@@ -27,7 +27,6 @@
           striped hover
           :items="flights"
           @row-clicked="load_creditCards">
-          this.flightId = row.item.id
       </b-table>
       <b-container v-if="this.flag == true">
           <b-row>
@@ -65,7 +64,7 @@ export default {
     data() {
       return {
         flag: false,
-        flightId: 1,
+        flightId: 0,
         perPage: 3,
         currentPage: 1,
         filter: null,
@@ -105,16 +104,16 @@ export default {
       var dto = [this.selected, this.filter];
       this.load_filtered_flights(dto);
     },
-    load_creditCards: function() {
+    load_creditCards: function(item, index, event) {
       this.load_available_creditCards();
       this.flag = true;
+      this.flightId = item.id;
       console.log(this.flightId);
     },
     addCreditCard: function (item, index, event) {
       this.$router.push('addCreditCard');
     },
     buyTicket: function() {
-      console.log('test');
       this.buy_ticket(this.flightId);
     }
   }
