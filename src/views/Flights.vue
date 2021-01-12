@@ -22,7 +22,7 @@
           <b-button @click="filterFlights">Filter</b-button>
         </b-col>
       </b-row>    
-      <b-table id="flights-table" striped hover :items="flights" @row-click="load_creditCards"></b-table>
+      <b-table id="flights-table" striped hover :items="flights" @row-clicked="load_creditCards"></b-table>
       <b-container v-if="flag == true">
           <b-row>
               <b-col cm="6" >
@@ -84,7 +84,8 @@ export default {
       this.load_filtered_flights(dto);
     },
     load_creditCards: function() {
-      this.load_available_creditCards;
+      console.log('test');
+      this.load_available_creditCards();
       this.flag = true;
     }
   }

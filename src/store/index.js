@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import CreditCard from '../classes/CreditCard.js';
 import Flight from "../classes/Flight.js";
 import Ticket from '../classes/Ticket.js';
 
@@ -43,8 +44,16 @@ export default new Vuex.Store({
     set_number_of_available_flights: function (state, size) {
       state.numberOfAvailableFlights = size;
     },
-    set_creditCards: function (state, creditCards) {
-      state.creditCards = creditCards;
+    set_creditCards: function (state, creditCardsJson) {
+      state.creditCards = []
+      for(var index in creditCardsJson) {
+        var firstName = creditCardsJson[index].firstName;
+        var lastName = creditCardsJson[index].lastName;
+        var cardNum = creditCardsJson[index].cardNum;
+        var securityNum = creditCardsJson[index].securityNum;
+        const card = new CreditCard(firstName, lastName, cardNum, securityNum);
+        state.creditCards.push(card);
+      }
     }
   },
   actions: {
