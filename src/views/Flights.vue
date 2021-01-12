@@ -22,11 +22,27 @@
           <b-button @click="filterFlights">Filter</b-button>
         </b-col>
       </b-row>
-      <b-table id="flights-table" striped hover :items="flights" @row-clicked="load_creditCards"></b-table>
+      <b-table
+          id="flights-table"
+          striped hover
+          :items="flights"
+          @row-clicked="load_creditCards">
+          this.flightId = row.item.id
+      </b-table>
       <b-container v-if="this.flag == true">
           <b-row>
               <b-col cm="6" >
-                  <BuyTicket/>
+                  <b-table
+                      hover v-if="creditCards.length"
+                      sticky-header="800px"
+                      :items="creditCards"
+                      :fields="fields"
+                      head-variant="light"
+                      @row-clicked="buyTicket">
+                  </b-table>
+                  <h1 v-else>
+                      <b-button variant="danger" @click="addCreditCard">Add Credit Card</b-button>
+                  </h1>
               </b-col>
           </b-row>
       </b-container>
@@ -36,21 +52,20 @@
 
 <script>
 // @ is an alias to /src
+import router from "@/router";
 import { mapActions, mapState } from 'vuex';
-import BuyTicket from "@/components/BuyTicket";
 export default {
   name: 'Flights',
-  components: {
-      BuyTicket
-  },
   computed: {
       ...mapState(['flights']),
       ...mapState(['token']),
-      ...mapState(['numberOfAvailableFlights'])
+      ...mapState(['numberOfAvailableFlights']),
+      ...mapState(['creditCards'])
     },
     data() {
       return {
         flag: false,
+        flightId: 1,
         perPage: 3,
         currentPage: 1,
         filter: null,
@@ -62,6 +77,12 @@ export default {
           { value: 'endDestination', text: 'End Destination' },
           { value: 'distance', text: 'Distance' },
           { value: 'price', text: 'Price' },
+        ],
+        fields: [
+          { key: 'firstName' },
+          { key: 'lastName' },
+          { key: 'cardNum' },
+          { key: 'securityNum' }
         ]
       }
     },
@@ -74,6 +95,7 @@ export default {
     ...mapActions(['load_number_of_available_flights']),
     ...mapActions(['load_filtered_flights']),
     ...mapActions(['load_available_creditCards']),
+    ...mapActions(['buy_ticket']),
     changePage: function() {
       this.load_available_flights(this.currentPage);
     },
@@ -86,6 +108,14 @@ export default {
     load_creditCards: function() {
       this.load_available_creditCards();
       this.flag = true;
+      console.log(this.flightId);
+    },
+    addCreditCard: function (item, index, event) {
+      this.$router.push('addCreditCard');
+    },
+    buyTicket: function() {
+      console.log('test');
+      this.buy_ticket(this.flightId);
     }
   }
 }
