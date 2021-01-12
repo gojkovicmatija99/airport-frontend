@@ -49,8 +49,8 @@ export default {
       ...mapState(['numberOfAvailableFlights'])
     },
     data() {
-      flag = false;
       return {
+        flag: false,
         perPage: 3,
         currentPage: 1,
         filter: null,
